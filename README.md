@@ -1,4 +1,4 @@
-# API-REST-SPRING-BOOT-JWT
+# MOVIE-APP
 
 - Authentication using a JWT for REST APIs
 - Spring Boot backend
@@ -31,14 +31,13 @@ Basic usage with defaults: server IP 127.0.0.1, server port 9081
 
 `docker run movieapp`
 
-**3. Documentation Swagger**
-
-`http://<SERVER_IP>:<SERVER_PORT>/swagger-ui.html#/`
-
-**4. Authentication data**
+**3. Authentication data**
 
 `username=admin | password=admin`
 
+### Documentation Swagger
+
+`http://<SERVER_IP>:<SERVER_PORT>/swagger-ui.html#/`
 
 ## Client sample
 
