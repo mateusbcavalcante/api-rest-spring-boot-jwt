@@ -1,0 +1,10 @@
+package com.movie.api.exceptions;
+
+public class ApiException extends RuntimeException {
+
+	private static final long serialVersionUID = -7979396198598876171L;
+
+	public ApiException(String s, Throwable throwable) {
+		super(s, throwable);
+	}
+}
