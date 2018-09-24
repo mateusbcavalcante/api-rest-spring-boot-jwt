@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.movie.api.constants.BaseConstant;
 import com.movie.api.exceptions.ApiException;
-import com.movie.api.responses.FavoriteMoviesResponse;
+import com.movie.api.responses.TopFavoriteResponse;
 import com.movie.api.responses.MessageResponse;
-import com.movie.api.responses.MovieResponse;
+import com.movie.api.responses.TmdbResponse;
 import com.movie.api.services.MovieService;
 
 @RestController
@@ -30,42 +30,42 @@ public class MovieController {
 	private MovieService movieService;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody ResponseEntity<MovieResponse> getMovie(@RequestHeader(value = "Authorization") String authorization,
+	public @ResponseBody ResponseEntity<TmdbResponse> getMovie(@RequestHeader(value = "Authorization") String authorization,
 			                                                    @RequestParam(value = "query", required = true) String query) {
 
-		MovieResponse tmdbResponse = new MovieResponse();
+		TmdbResponse tmdbResponse = new TmdbResponse();
 		
 		try {
 			
-			return new ResponseEntity<MovieResponse>(movieService.getMovieByQuery(query), HttpStatus.OK);
+			return new ResponseEntity<TmdbResponse>(movieService.getMovieByQuery(query), HttpStatus.OK);
 			
 		} catch (ApiException ex) {
 			LOGGER.error(BaseConstant.INVALID_API_KEY, ex);
 			tmdbResponse.setMensagem(new MessageResponse(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()));
-		    return new ResponseEntity<MovieResponse>(tmdbResponse, HttpStatus.UNAUTHORIZED);
+		    return new ResponseEntity<TmdbResponse>(tmdbResponse, HttpStatus.UNAUTHORIZED);
 		}
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value="/top_rated", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody ResponseEntity<MovieResponse> getTopRated(@RequestHeader(value = "Authorization") String authorization) {
+	public @ResponseBody ResponseEntity<TmdbResponse> getTopRated(@RequestHeader(value = "Authorization") String authorization) {
 		
-		MovieResponse tmdbResponse = new MovieResponse();
+		TmdbResponse tmdbResponse = new TmdbResponse();
 		
 		try {
 			
-			return new ResponseEntity<MovieResponse>(movieService.getTopRated(), HttpStatus.OK);
+			return new ResponseEntity<TmdbResponse>(movieService.getTopRated(), HttpStatus.OK);
 			
 		} catch (ApiException ex) {
 			LOGGER.error(BaseConstant.INVALID_API_KEY, ex);
 			tmdbResponse.setMensagem(new MessageResponse(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()));
-		    return new ResponseEntity<MovieResponse>(tmdbResponse, HttpStatus.UNAUTHORIZED);
+		    return new ResponseEntity<TmdbResponse>(tmdbResponse, HttpStatus.UNAUTHORIZED);
 		}
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value="/top_favorited", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody ResponseEntity<FavoriteMoviesResponse> getTopFavorited(@RequestHeader(value = "Authorization") String authorization) {
-		FavoriteMoviesResponse topFavoritoMovieResponse = new FavoriteMoviesResponse(); 
+	public @ResponseBody ResponseEntity<TopFavoriteResponse> getTopFavorited(@RequestHeader(value = "Authorization") String authorization) {
+		TopFavoriteResponse topFavoritoMovieResponse = new TopFavoriteResponse(); 
 		topFavoritoMovieResponse.setFavoritesMovie(movieService.getTopFavorited());
-		return new ResponseEntity<FavoriteMoviesResponse>(topFavoritoMovieResponse, HttpStatus.OK);
+		return new ResponseEntity<TopFavoriteResponse>(topFavoritoMovieResponse, HttpStatus.OK);
 	}
 }

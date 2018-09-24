@@ -18,8 +18,8 @@ import com.movie.api.constants.BaseConstant;
 import com.movie.api.exceptions.ApiException;
 import com.movie.api.models.UserMovie;
 import com.movie.api.repositories.UserMovieRepository;
-import com.movie.api.responses.MovieResponse;
-import com.movie.api.vo.FavoriteMoviesVo;
+import com.movie.api.responses.FavoriteMovieResponse;
+import com.movie.api.responses.TmdbResponse;
 
 @Service
 public class MovieService {
@@ -36,31 +36,31 @@ public class MovieService {
 	@Value("${api.url.movie.query}")
 	private String API_URL_MOVIE_QUERY;
 	
-	public MovieResponse getTopRated() throws ApiException {
+	public TmdbResponse getTopRated() throws ApiException {
 		try {
-			return new RestTemplate().exchange(UriComponentsBuilder.fromHttpUrl(API_URL_MOVIE_TOP_RATED).queryParam("api_key", API_KEY).toUriString(), HttpMethod.GET, null, MovieResponse.class).getBody();
+			return new RestTemplate().exchange(UriComponentsBuilder.fromHttpUrl(API_URL_MOVIE_TOP_RATED).queryParam("api_key", API_KEY).toUriString(), HttpMethod.GET, null, TmdbResponse.class).getBody();
 		} catch (HttpClientErrorException ex) {
 			throw new ApiException(BaseConstant.INVALID_API_KEY, ex);
 		}
 	}
 	
-	public MovieResponse getMovieByQuery(String query) throws ApiException {
+	public TmdbResponse getMovieByQuery(String query) throws ApiException {
 		try {
-			return new RestTemplate().exchange(UriComponentsBuilder.fromHttpUrl(String.format(API_URL_MOVIE_QUERY, query)).queryParam("api_key", API_KEY).toUriString(), HttpMethod.GET, null, MovieResponse.class).getBody();
+			return new RestTemplate().exchange(UriComponentsBuilder.fromHttpUrl(String.format(API_URL_MOVIE_QUERY, query)).queryParam("api_key", API_KEY).toUriString(), HttpMethod.GET, null, TmdbResponse.class).getBody();
 		} catch (HttpClientErrorException ex) {
 			throw new ApiException(BaseConstant.INVALID_QUERY, ex);
 		}
 	}
 	
-	public List<FavoriteMoviesVo> getTopFavorited() {
-		List<FavoriteMoviesVo> listFavoriteMovieVo = new ArrayList<>();
+	public List<FavoriteMovieResponse> getTopFavorited() {
+		List<FavoriteMovieResponse> listFavoriteMovieVo = new ArrayList<>();
 		Map<Integer, Long> favoriteMoviesMap = new LinkedHashMap<>();
 		
 		userMovieRepository.findAll().stream().collect(Collectors.groupingBy(UserMovie::getTmdbMediaId, Collectors.counting())).entrySet()
 		                             .stream().sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
 		                             .forEachOrdered(e -> favoriteMoviesMap.put(e.getKey(), e.getValue()));
         
-		favoriteMoviesMap.forEach((k,v)->{listFavoriteMovieVo.add(new FavoriteMoviesVo(k,v));});
+		favoriteMoviesMap.forEach((k,v)->{listFavoriteMovieVo.add(new FavoriteMovieResponse(k,v));});
         
 		return listFavoriteMovieVo;
 	}
