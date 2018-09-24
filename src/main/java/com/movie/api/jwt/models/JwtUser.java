@@ -1,4 +1,4 @@
-package com.movie.api.models;
+package com.movie.api.jwt.models;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.movie.api.models.User;
 
 public class JwtUser implements UserDetails {
 

@@ -10,8 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.movie.api.jwt.filter.JWTAuthenticationFilter;
-import com.movie.api.jwt.filter.JWTLoginFilter;
+import com.movie.api.jwt.filters.JwtAuthenticationFilter;
+import com.movie.api.jwt.filters.JwtLoginFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -39,8 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	            .authorizeRequests()
 	                .antMatchers(TOKEN_BASED_AUTH_ENTRY_POINT).authenticated()
 	        .and()
-	        .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
-			 .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+	        .addFilterBefore(new JwtLoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+			 .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	        
 	        http
 	            .headers()

@@ -1,0 +1,67 @@
+package com.movie.api.services;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.movie.api.constants.BaseConstant;
+import com.movie.api.exceptions.ApiException;
+import com.movie.api.models.UserMovie;
+import com.movie.api.repositories.UserMovieRepository;
+import com.movie.api.responses.MovieResponse;
+import com.movie.api.vo.FavoriteMoviesVo;
+
+@Service
+public class MovieService {
+
+	@Autowired
+	private UserMovieRepository userMovieRepository;
+	
+	@Value("${api.key}")
+	private String API_KEY;
+	
+	@Value("${api.url.movie.top.rated}")
+	private String API_URL_MOVIE_TOP_RATED;
+
+	@Value("${api.url.movie.query}")
+	private String API_URL_MOVIE_QUERY;
+	
+	public MovieResponse getTopRated() throws ApiException {
+		try {
+			return new RestTemplate().exchange(UriComponentsBuilder.fromHttpUrl(API_URL_MOVIE_TOP_RATED).queryParam("api_key", API_KEY).toUriString(), HttpMethod.GET, null, MovieResponse.class).getBody();
+		} catch (HttpClientErrorException ex) {
+			throw new ApiException(BaseConstant.INVALID_API_KEY, ex);
+		}
+	}
+	
+	public MovieResponse getMovieByQuery(String query) throws ApiException {
+		try {
+			return new RestTemplate().exchange(UriComponentsBuilder.fromHttpUrl(String.format(API_URL_MOVIE_QUERY, query)).queryParam("api_key", API_KEY).toUriString(), HttpMethod.GET, null, MovieResponse.class).getBody();
+		} catch (HttpClientErrorException ex) {
+			throw new ApiException(BaseConstant.INVALID_QUERY, ex);
+		}
+	}
+	
+	public List<FavoriteMoviesVo> getTopFavorited() {
+		List<FavoriteMoviesVo> listFavoriteMovieVo = new ArrayList<>();
+		Map<Integer, Long> favoriteMoviesMap = new LinkedHashMap<>();
+		
+		userMovieRepository.findAll().stream().collect(Collectors.groupingBy(UserMovie::getTmdbMediaId, Collectors.counting())).entrySet()
+		                             .stream().sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
+		                             .forEachOrdered(e -> favoriteMoviesMap.put(e.getKey(), e.getValue()));
+        
+		favoriteMoviesMap.forEach((k,v)->{listFavoriteMovieVo.add(new FavoriteMoviesVo(k,v));});
+        
+		return listFavoriteMovieVo;
+	}
+}
