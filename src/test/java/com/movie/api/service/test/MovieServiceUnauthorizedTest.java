@@ -14,7 +14,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.movie.api.exceptions.ApiException;
-import com.movie.api.responses.MovieResponse;
+import com.movie.api.responses.TmdbResponse;
 import com.movie.api.services.MovieService;
 
 @RunWith(SpringRunner.class)
@@ -30,13 +30,13 @@ public class MovieServiceUnauthorizedTest {
 	
 	@Test(expected = ApiException.class)
 	public void whenInvalidAPiKey_thenExceptionShouldBeFoundByMovieQuery() throws Exception {
-		MovieResponse movieResponse = movieService.getMovieByQuery("Titanic");
+		TmdbResponse movieResponse = movieService.getMovieByQuery("Titanic");
 		assertThat(movieResponse.getResults(), not(IsEmptyCollection.empty()));
 	}
 	
 	@Test(expected = ApiException.class)
 	public void whenInvalidAPiKey_thenExceptionShouldBeFoundByTopRated() throws Exception {
-		MovieResponse movieResponse = movieService.getTopRated();
+		TmdbResponse movieResponse = movieService.getTopRated();
 		assertThat(movieResponse.getResults(), not(IsEmptyCollection.empty()));
 	}
 }

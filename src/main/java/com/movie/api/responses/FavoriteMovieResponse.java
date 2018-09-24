@@ -1,8 +1,8 @@
-package com.movie.api.vo;
+package com.movie.api.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class FavoriteMoviesVo {
+public class FavoriteMovieResponse {
 
 	@JsonProperty("tmdb_media_id")
 	private Integer tmdbMediaId;
@@ -10,11 +10,11 @@ public class FavoriteMoviesVo {
 	@JsonProperty("favorite_count")
 	private Long favoriteCount;
 
-	public FavoriteMoviesVo() {
+	public FavoriteMovieResponse() {
 		
 	}
 	
-	public FavoriteMoviesVo(Integer tmdbMediaId, Long favoriteCount) {
+	public FavoriteMovieResponse(Integer tmdbMediaId, Long favoriteCount) {
 		this.tmdbMediaId = tmdbMediaId;
 		this.favoriteCount = favoriteCount;
 	}
