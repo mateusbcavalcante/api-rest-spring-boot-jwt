@@ -1,6 +1,6 @@
-package com.movie.api.jwt.filter;
+package com.movie.api.vo;
 
-public class UserCredentials {
+public class UserCredentialsVo {
 
 	private String username;
 	

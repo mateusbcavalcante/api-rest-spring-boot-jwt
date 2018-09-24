@@ -18,6 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.movie.api.jwt.service.AuthenticationService;
+import com.movie.api.vo.UserCredentialsVo;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -31,7 +32,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	              																						IOException, 
 	              																						ServletException {
 		
-		UserCredentials creds = new ObjectMapper().readValue(req.getInputStream(), UserCredentials.class);
+		UserCredentialsVo creds = new ObjectMapper().readValue(req.getInputStream(), UserCredentialsVo.class);
 		return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(), 
 				    																		   creds.getPassword(), 
 				    																		   Collections.<GrantedAuthority>emptyList()));
