@@ -29,18 +29,13 @@ Basic usage with defaults: server IP 127.0.0.1, server port 9081
 
 **2. Run**
 
-`docker run -d -p <SERVER_PORT>:8080 movieapp`
+`docker run movieapp`
 
-**3. Access to APIs**
-
-Point your local browser to:
-`http://<SERVER_IP>:<SERVER_PORT>`
-
-**4. Documentation Swagger**
+**3. Documentation Swagger**
 
 `http://<SERVER_IP>:<SERVER_PORT>/swagger-ui.html#/`
 
-**5. Authentication data**
+**4. Authentication data**
 
 `username=admin | password=admin`
 
