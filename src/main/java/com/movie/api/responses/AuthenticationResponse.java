@@ -2,12 +2,12 @@ package com.movie.api.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class JwtAuthenticationResponse {
+public class AuthenticationResponse {
 
 	@JsonProperty("token")
 	private String token;
 
-	public JwtAuthenticationResponse(String token) {
+	public AuthenticationResponse(String token) {
 		this.token = token;
 	}
 	

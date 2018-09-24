@@ -7,8 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.movie.api.constants.BaseConstant;
+import com.movie.api.jwt.models.JwtUser;
+import com.movie.api.jwt.service.JwtUserDetailsService;
 import com.movie.api.jwt.util.JwtTokenUtil;
-import com.movie.api.models.JwtUser;
 import com.movie.api.models.UserMovie;
 import com.movie.api.repositories.UserMovieRepository;
 

@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.movie.api.request.JwtAuthenticationRequest;
+import com.movie.api.requests.AuthenticationRequest;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,7 +28,7 @@ public class AuthenticationControllerTest {
     @Test
     public void unauthorizedAuthenticationWithAnonymousUser() throws Exception {
 
-        JwtAuthenticationRequest jwtAuthenticationRequest = new JwtAuthenticationRequest("user", "password");
+        AuthenticationRequest jwtAuthenticationRequest = new AuthenticationRequest("user", "password");
 
         mvc.perform(post("/auth")
             .contentType(contentType)
@@ -39,7 +39,7 @@ public class AuthenticationControllerTest {
     @Test
     public void successfulAuthenticationWithAnonymousUser() throws Exception {
 
-        JwtAuthenticationRequest jwtAuthenticationRequest = new JwtAuthenticationRequest("admin", "admin");
+        AuthenticationRequest jwtAuthenticationRequest = new AuthenticationRequest("admin", "admin");
 
         mvc.perform(post("/auth")
             .contentType(contentType)

@@ -1,4 +1,4 @@
-package com.movie.api.jwt.filter;
+package com.movie.api.jwt.filters;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -17,12 +17,12 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.movie.api.jwt.service.AuthenticationService;
-import com.movie.api.vo.UserCredentialsVo;
+import com.movie.api.jwt.credentials.JwtUserCredentials;
+import com.movie.api.jwt.service.JwtAuthenticationService;
 
-public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
+public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-	public JWTLoginFilter(String url, AuthenticationManager authManager) {
+	public JwtLoginFilter(String url, AuthenticationManager authManager) {
 		super(new AntPathRequestMatcher(url));
 		setAuthenticationManager(authManager);
 	}
@@ -32,7 +32,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	              																						IOException, 
 	              																						ServletException {
 		
-		UserCredentialsVo creds = new ObjectMapper().readValue(req.getInputStream(), UserCredentialsVo.class);
+		JwtUserCredentials creds = new ObjectMapper().readValue(req.getInputStream(), JwtUserCredentials.class);
 		return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(), 
 				    																		   creds.getPassword(), 
 				    																		   Collections.<GrantedAuthority>emptyList()));
@@ -42,6 +42,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, 
 			                                FilterChain chain, Authentication auth) throws IOException, ServletException {
 		
-		AuthenticationService.addAuthentication(res, auth.getName());
+		JwtAuthenticationService.addAuthentication(res, auth.getName());
 	}
 }

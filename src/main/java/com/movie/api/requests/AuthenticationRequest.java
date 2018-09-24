@@ -1,8 +1,8 @@
-package com.movie.api.request;
+package com.movie.api.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class JwtAuthenticationRequest {
+public class AuthenticationRequest {
 
 	@JsonProperty("username")
 	private String username;
@@ -10,7 +10,7 @@ public class JwtAuthenticationRequest {
 	@JsonProperty("password")
 	private String password;
 
-	public JwtAuthenticationRequest(String username, String password) {
+	public AuthenticationRequest(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}

@@ -12,13 +12,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.movie.api.jwt.util.JwtTokenUtil;
-import com.movie.api.services.JwtUserDetailsService;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
-public class AuthenticationService {
+public class JwtAuthenticationService {
 
     private static final long EXPIRATIONTIME = 864000000;
     private static final String SECRET = "ThisIsASecret";

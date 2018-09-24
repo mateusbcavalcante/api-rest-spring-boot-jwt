@@ -1,6 +1,6 @@
-package com.movie.api.vo;
+package com.movie.api.jwt.credentials;
 
-public class UserCredentialsVo {
+public class JwtUserCredentials {
 
 	private String username;
 	

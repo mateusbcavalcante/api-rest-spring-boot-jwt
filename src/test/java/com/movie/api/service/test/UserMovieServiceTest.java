@@ -17,8 +17,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.movie.api.jwt.models.JwtUser;
 import com.movie.api.jwt.util.JwtTokenUtil;
-import com.movie.api.models.JwtUser;
 import com.movie.api.models.User;
 import com.movie.api.models.UserMovie;
 import com.movie.api.repositories.UserMovieRepository;
