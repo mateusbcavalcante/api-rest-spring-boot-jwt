@@ -21,7 +21,6 @@ You need to have:
 - a Docker installation available locally. See [Docker website](https://docs.docker.com/install/) on installation instructions.
 
 ## To run the application
-Basic usage with defaults: server IP 127.0.0.1, server port 9081
 
 **1. Docker Pull Command**
 
@@ -29,7 +28,7 @@ Basic usage with defaults: server IP 127.0.0.1, server port 9081
 
 **2. Run**
 
-`docker run movieapp`
+`docker run mateusbcavalcante/movieapp-repo`
 
 **3. Authentication data**
 
