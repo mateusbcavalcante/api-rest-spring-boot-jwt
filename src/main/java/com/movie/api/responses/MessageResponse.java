@@ -1,12 +1,8 @@
 package com.movie.api.responses;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class MessageResponse implements Serializable {
-
-	private static final long serialVersionUID = -8569828254078451966L;
+public class MessageResponse {
 
 	@JsonProperty("status_code")
 	private int statusCode;

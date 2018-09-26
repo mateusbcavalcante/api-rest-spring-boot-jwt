@@ -33,7 +33,7 @@ public class AuthenticationControllerTest {
         mvc.perform(post("/auth")
             .contentType(contentType)
             .content(new ObjectMapper().writeValueAsString(jwtAuthenticationRequest)))
-        	.andExpect(status().isForbidden());
+        	.andExpect(status().isBadRequest());
     }
     
     @Test

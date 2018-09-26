@@ -70,7 +70,7 @@ You need to have:
  
 * **Error Response:**
 
-  * **Code:** 403 FORBIDDEN <br />
+  * **Code:** 400 BAD REQUEST <br />
 
 ### Search Movies
 
@@ -88,7 +88,7 @@ You need to have:
   
    **Required:**
  
-   `Authorization=[string]`
+   None
 
 *  **URL Params**
 
@@ -102,7 +102,7 @@ You need to have:
  
 * **Error Response:**
 
-  * **Code:** 403 FORBIDDEN <br />
+  * **Code:** 400 BAD REQUEST <br />
   
 ### Top Rated
 
@@ -120,7 +120,7 @@ You need to have:
   
    **Required:**
  
-   `Authorization=[string]`
+   None
   
 *  **URL Params**
 
@@ -134,7 +134,7 @@ You need to have:
  
 * **Error Response:**
 
-  * **Code:** 403 FORBIDDEN <br />
+  * **Code:** 400 BAD REQUEST <br />
 
 ### Top favorited movies
 
@@ -152,7 +152,7 @@ You need to have:
   
    **Required:**
  
-   `Authorization=[string]`
+   None
   
 *  **URL Params**
 
@@ -166,7 +166,7 @@ You need to have:
  
 * **Error Response:**
 
-  * **Code:** 403 FORBIDDEN <br />
+  * **Code:** 400 BAD REQUEST <br />
   
 ### Favorited movies by user
 
@@ -198,7 +198,7 @@ You need to have:
  
 * **Error Response:**
 
-  * **Code:** 403 FORBIDDEN <br />
+  * **Code:** 400 BAD REQUEST <br />
   
 ### Mark as favorite item
 
@@ -230,7 +230,7 @@ You need to have:
  
 * **Error Response:**
 
-  * **Code:** 403 FORBIDDEN <br />
+  * **Code:** 400 BAD REQUEST <br />
 
 ## Author
 

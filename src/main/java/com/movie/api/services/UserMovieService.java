@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.movie.api.constants.BaseConstant;
+import com.movie.api.exceptions.ApiException;
 import com.movie.api.jwt.models.JwtUser;
 import com.movie.api.jwt.service.JwtUserDetailsService;
 import com.movie.api.jwt.util.JwtTokenUtil;
@@ -28,11 +29,15 @@ public class UserMovieService {
 	public UserMovie markAsFavorite(String authorization, Integer tmdbMovieId) {
 		try {
 			
+			if (tmdbMovieId == null) {
+				throw new ApiException(BaseConstant.INVALID_MOVIE_ID);
+			}
+			
 			JwtUser jwtUser = (JwtUser) userDetailsService.loadUserByUsername(jwtTokenUtil.getUsernameFromToken(authorization));
 			return userMovieRepository.save(new UserMovie(jwtUser.getUser().getId(), tmdbMovieId));
 			
 		} catch (UsernameNotFoundException ex) {
-			throw new UsernameNotFoundException(BaseConstant.USERNAME_NOT_FOUND, ex);
+			throw new UsernameNotFoundException(BaseConstant.USERNAME_NOT_FOUND);
 		}
 	}
 	
@@ -43,7 +48,7 @@ public class UserMovieService {
 			return userMovieRepository.findFavoriteMoviesByUserId(jwtUser.getUser().getId());
 			
 		} catch (UsernameNotFoundException ex) {
-			throw new UsernameNotFoundException(BaseConstant.USERNAME_NOT_FOUND, ex);
+			throw new UsernameNotFoundException(BaseConstant.USERNAME_NOT_FOUND);
 		}
 	}
 }

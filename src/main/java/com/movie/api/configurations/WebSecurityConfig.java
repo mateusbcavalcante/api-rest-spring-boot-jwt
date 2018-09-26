@@ -18,7 +18,7 @@ import com.movie.api.jwt.filters.JwtLoginFilter;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String FORM_BASED_LOGIN_ENTRY_POINT = "/login";
-    public static final String TOKEN_BASED_AUTH_ENTRY_POINT = "/api/v1/**";
+    public static final String TOKEN_BASED_AUTH_ENTRY_POINT = "/api/v1/user/**";
 	
 	 @Override
 	    protected void configure(HttpSecurity http) throws Exception {
@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	            .authorizeRequests()
 	                .antMatchers(FORM_BASED_LOGIN_ENTRY_POINT).permitAll()
 	                .antMatchers("/h2-console/**/**").permitAll()
+	                .antMatchers("/api/v1/movie/**").permitAll()
 	                .antMatchers("/swagger-ui.html","/swagger-resources").permitAll()
 	        .and()
 	            .authorizeRequests()

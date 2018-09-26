@@ -17,6 +17,7 @@ import com.movie.api.constants.BaseConstant;
 import com.movie.api.exceptions.AuthenticationException;
 import com.movie.api.jwt.service.JwtAuthenticationService;
 import com.movie.api.requests.AuthenticationRequest;
+import com.movie.api.responses.ApiResponse;
 import com.movie.api.responses.AuthenticationResponse;
 
 @RestController
@@ -32,17 +33,25 @@ public class AuthenticationController {
 	private AuthenticationManager authenticationManager;
 	
 	@RequestMapping(method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody(required=true) AuthenticationRequest jwtAuthenticationRequest) throws AuthenticationException {
-        authenticate(jwtAuthenticationRequest.getUsername(), jwtAuthenticationRequest.getPassword());
-        return ResponseEntity.ok(new AuthenticationResponse(authenticationService.generateTokenByUsername(jwtAuthenticationRequest.getUsername())));
-    }
-	
-    private void authenticate(String username, String password) {
-        try {
-        	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (BadCredentialsException e) {
-        	LOGGER.error(BaseConstant.BAD_CREDENTIALS, e);
-            throw new AuthenticationException(BaseConstant.BAD_CREDENTIALS, e);
-        }
+    public ResponseEntity<ApiResponse<AuthenticationResponse>> createAuthenticationToken(@RequestBody(required=true) AuthenticationRequest jwtAuthenticationRequest) throws AuthenticationException {
+		
+		ApiResponse<AuthenticationResponse> apiResponse = new ApiResponse<>();
+		AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+		
+		try {
+			
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtAuthenticationRequest.getUsername(), jwtAuthenticationRequest.getPassword()));
+	        
+	        String token = authenticationService.generateTokenByUsername(jwtAuthenticationRequest.getUsername());
+	        authenticationResponse.setToken(token);
+	        apiResponse.setData(authenticationResponse);
+        
+	        return ResponseEntity.ok(apiResponse);
+        
+		} catch (BadCredentialsException e) {
+			LOGGER.error(BaseConstant.BAD_CREDENTIALS, e);
+			apiResponse.getErrors().add(BaseConstant.BAD_CREDENTIALS);
+			return ResponseEntity.badRequest().body(apiResponse);
+		}
     }
 }

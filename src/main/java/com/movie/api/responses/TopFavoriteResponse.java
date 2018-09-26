@@ -1,14 +1,10 @@
 package com.movie.api.responses;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.movie.api.responses.base.BaseResponse;
 
-public class TopFavoriteResponse extends BaseResponse implements Serializable {
-
-	private static final long serialVersionUID = -8569828254078451966L;
+public class TopFavoriteResponse {
 
 	@JsonProperty("favorite_movie")
 	private List<FavoriteMovieResponse> favoritesMovie;

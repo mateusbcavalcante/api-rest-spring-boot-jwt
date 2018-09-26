@@ -56,7 +56,7 @@ public class UserMovieControllerTest {
 		            .accept(contentType)
 		            .header("Authorization", tokenUnauthorized)
 		            .param("tmdb_movie_id", "400"))
-					.andExpect(status().isNotFound());
+					.andExpect(status().isBadRequest());
 	}
 	
 	@Test
@@ -72,6 +72,6 @@ public class UserMovieControllerTest {
 		mvc.perform(get("/api/v1/user/movie/favorites")
 		            .accept(contentType)
 		            .header("Authorization", tokenUnauthorized))
-					.andExpect(status().isNotFound());
+					.andExpect(status().isBadRequest());
 	}
 }

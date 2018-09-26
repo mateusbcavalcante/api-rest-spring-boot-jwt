@@ -1,14 +1,10 @@
 package com.movie.api.responses;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.movie.api.responses.base.BaseResponse;
 
-public class TmdbResponse extends BaseResponse implements Serializable {
-
-	private static final long serialVersionUID = 967760234570489962L;
+public class TmdbResponse {
 
 	@JsonProperty("page")
 	private Integer page;
