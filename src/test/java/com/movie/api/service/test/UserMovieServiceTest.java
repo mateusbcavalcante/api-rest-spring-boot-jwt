@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.movie.api.exceptions.ApiException;
 import com.movie.api.jwt.models.JwtUser;
 import com.movie.api.jwt.util.JwtTokenUtil;
 import com.movie.api.models.User;
@@ -60,6 +61,12 @@ public class UserMovieServiceTest {
 	public void whenInvalidToken_thenExceptionShouldBeFoundBySaveFavoriteMovieByUser() throws Exception {
 		userMovieService.markAsFavorite(tokenUnauthorized, 204);
 		Assert.assertNull(userMovieRepository.findFavoriteMovieByMediaId(204));
+	}
+	
+	@Test(expected = ApiException.class)
+	public void whenInvalidToken_thenExceptionShouldBeExceptionBySaveFavoriteMovieByUserAndMediaIdNull() throws Exception {
+		userMovieService.markAsFavorite(tokenUnauthorized, null);
+		Assert.assertNull(userMovieRepository.findFavoriteMovieByMediaId(null));
 	}
 	
 	@Test

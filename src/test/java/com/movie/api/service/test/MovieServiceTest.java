@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.movie.api.exceptions.ApiException;
 import com.movie.api.responses.FavoriteMovieResponse;
 import com.movie.api.responses.TmdbResponse;
 import com.movie.api.services.MovieService;
@@ -31,6 +32,12 @@ public class MovieServiceTest {
 	@Test
 	public void whenValidQuery_thenMovieShouldBeFound() throws Exception {
 		TmdbResponse movieResponse = movieService.getMovieByQuery("Titanic");
+		assertThat(movieResponse.getResults(), not(IsEmptyCollection.empty()));
+	}
+	
+	@Test(expected = ApiException.class)
+	public void whenInvalidQuery_thenExceptionBeFound() throws Exception {
+		TmdbResponse movieResponse = movieService.getMovieByQuery("");
 		assertThat(movieResponse.getResults(), not(IsEmptyCollection.empty()));
 	}
 	

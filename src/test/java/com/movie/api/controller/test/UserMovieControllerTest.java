@@ -51,6 +51,15 @@ public class UserMovieControllerTest {
 	}
 	
 	@Test
+	public void shouldBeReturnedBadRequestByMovieIdNull() throws Exception {
+		mvc.perform(post("/api/v1/user/movie/mark_as_favorite")
+		            .accept(contentType)
+		            .header("Authorization", token)
+		            .param("tmdb_movie_id", ""))
+					.andExpect(status().isBadRequest());
+	}
+	
+	@Test
 	public void shouldBeReturnedUserNotFoundByFavoritedMovie() throws Exception {
 		mvc.perform(post("/api/v1/user/movie/mark_as_favorite")
 		            .accept(contentType)

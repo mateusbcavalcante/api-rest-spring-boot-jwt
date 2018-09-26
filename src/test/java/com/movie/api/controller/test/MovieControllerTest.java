@@ -32,6 +32,15 @@ public class MovieControllerTest {
 	}
 	
 	@Test
+	public void shouldBeReturnedBadRequestByMovieSearchedNameWith() throws Exception {
+		
+		mvc.perform(get("/api/v1/movie")
+		            .accept(contentType)
+		            .param("query", ""))
+					.andExpect(status().isBadRequest());
+	}
+	
+	@Test
 	public void shouldBeReturnedBestMoviesWithSuccess() throws Exception {
 		mvc.perform(get("/api/v1/movie/top_rated")
 		            .accept(contentType))
