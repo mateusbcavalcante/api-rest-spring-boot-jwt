@@ -42,8 +42,7 @@ public class AuthenticationController {
 			
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtAuthenticationRequest.getUsername(), jwtAuthenticationRequest.getPassword()));
 	        
-	        String token = authenticationService.generateTokenByUsername(jwtAuthenticationRequest.getUsername());
-	        authenticationResponse.setToken(token);
+	        authenticationResponse.setToken(authenticationService.generateTokenByUsername(jwtAuthenticationRequest.getUsername()));
 	        apiResponse.setData(authenticationResponse);
         
 	        return ResponseEntity.ok(apiResponse);

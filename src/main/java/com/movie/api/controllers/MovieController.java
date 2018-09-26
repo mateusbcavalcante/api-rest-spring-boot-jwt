@@ -27,14 +27,13 @@ public class MovieController {
 	private MovieService movieService;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody ResponseEntity<ApiResponse<TmdbResponse>> getMovie(@RequestParam(value = "query") String query) {
+	public @ResponseBody ResponseEntity<ApiResponse<TmdbResponse>> getMovie(@RequestParam(value = "query", required=false) String query) {
 		
-		ApiResponse<TmdbResponse> responseApi = new ApiResponse<TmdbResponse>();
+		ApiResponse<TmdbResponse> responseApi = new ApiResponse<>();
 		
 		try {
 			
-			TmdbResponse tmdbResponse = movieService.getMovieByQuery(query);
-			responseApi.setData(tmdbResponse);
+			responseApi.setData(movieService.getMovieByQuery(query));
 			return ResponseEntity.ok(responseApi);
 			
 		} catch (ApiException ex) {
@@ -47,12 +46,11 @@ public class MovieController {
 	@RequestMapping(method = RequestMethod.GET, value="/top_rated", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<ApiResponse<TmdbResponse>> getTopRated() {
 		
-		ApiResponse<TmdbResponse> responseApi = new ApiResponse<TmdbResponse>();
+		ApiResponse<TmdbResponse> responseApi = new ApiResponse<>();
 		
 		try {
 			
-			TmdbResponse tmdbResponse = movieService.getTopRated();
-			responseApi.setData(tmdbResponse);
+			responseApi.setData(movieService.getTopRated());
 			return ResponseEntity.ok(responseApi);
 			
 		} catch (ApiException ex) {
@@ -65,11 +63,11 @@ public class MovieController {
 	@RequestMapping(method = RequestMethod.GET, value="/top_favorited", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<ApiResponse<TopFavoriteResponse>> getTopFavorited() {
 		
-		ApiResponse<TopFavoriteResponse> responseApi = new ApiResponse<TopFavoriteResponse>();
+		ApiResponse<TopFavoriteResponse> responseApi = new ApiResponse<>();
+		TopFavoriteResponse topFavoritoMovieResponse = new TopFavoriteResponse(); 
 		
 		try {
 			
-			TopFavoriteResponse topFavoritoMovieResponse = new TopFavoriteResponse(); 
 			topFavoritoMovieResponse.setFavoritesMovie(movieService.getTopFavorited());
 			responseApi.setData(topFavoritoMovieResponse);
 			return ResponseEntity.ok(responseApi);

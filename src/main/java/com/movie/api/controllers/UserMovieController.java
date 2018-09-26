@@ -34,7 +34,7 @@ public class UserMovieController {
 	public @ResponseBody ResponseEntity<ApiResponse<MarkFavoriteResponse>> markAsFavorite(@RequestHeader(value = "Authorization") String authorization,
 			          												                      @RequestParam(value = "tmdb_movie_id", required = false) Integer tmdbMovieId) {
 		
-		ApiResponse<MarkFavoriteResponse> responseApi = new ApiResponse<MarkFavoriteResponse>();
+		ApiResponse<MarkFavoriteResponse> responseApi = new ApiResponse<>();
 		MarkFavoriteResponse markFavoriteResponse = new MarkFavoriteResponse();
 		
 		try {
@@ -59,7 +59,7 @@ public class UserMovieController {
 	@RequestMapping(method = RequestMethod.GET, value="/favorites", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<ApiResponse<UserMovieResponse>> findFavoriteMoviesByUserId(@RequestHeader(value = "Authorization") String authorization) {
 		
-		ApiResponse<UserMovieResponse> responseApi = new ApiResponse<UserMovieResponse>();
+		ApiResponse<UserMovieResponse> responseApi = new ApiResponse<>();
 		UserMovieResponse userMovieResponse = new UserMovieResponse(); 
 		
 		try {
